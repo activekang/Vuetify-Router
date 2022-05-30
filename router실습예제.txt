@@ -1,0 +1,96 @@
+Vue router, Vuex, vuetify 사용하기
+
+Vue Router : 페이지 링크기능
+
+Vue Router설치
+> vue add router
+
+Vuex 란?
+Vue.js 애플리케이션에 대한 상태 관리 패턴 + 라이브러리. 애플리케이션의 모든 컴포넌트에 대한 중앙 집중식 저장소 역할을 하며, 예측 가능한 방식으로 상태를 변경할 수 있다.
+
+> vue add vuex
+
+Vuetify 란?
+Vue 생태계에서 가장 활동적이며 다양한, 완벽한 기능을 갖춘 개발 프레임 워크이다. 쉽게 말해 vue에서 사용할 수 있는 용이한 UI toolkit이라고 할 수 있다.
+
+> vue add vuetify 
+
+
+App.vue
+<template>
+  <v-app>
+      <span>Vuetify</span>
+      <v-btn><router-link to="/">Home</router-link></v-btn>
+      <v-btn><router-link to="/about">About</router-link></v-btn>
+      <v-btn><router-link to="/port">Portfolio</router-link></v-btn>
+    <v-content>
+      <router-view/>
+    </v-content>
+  </v-app>
+</template>
+
+<script>
+//import HelloWorld from "./components/HelloWorld";
+
+export default {
+  name: "App",
+  components: {
+   // HelloWorld
+  },
+  data() {
+    return {
+      //
+    };
+  }
+};
+</script>
+
+router/index.js
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import HomeView from '../views/HomeView.vue'
+import PortView from '../views/PortView'
+
+Vue.use(VueRouter)
+
+const routes = [
+  {
+    path: '/',
+    name: 'homeview',
+    component: HomeView
+  },
+  {
+    path: '/about',
+    name: 'about',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+  },
+  {
+    path: '/port',
+    name: 'portfolio',
+    component: PortView
+  }
+]
+
+const router = new VueRouter({
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes
+})
+
+export default router
+
+추가하고 링크확인
+PortView.vue
+
+<template>
+  <div class="portfolio">
+    <h1>This is an portfolio page</h1>
+  </div>
+</template>
+
+
+
+
